@@ -1,3 +1,3 @@
-# Swiftnetic
+# 🧬 Swiftnetic
 
-A description of this package.
+An implementation of the genetic algorithm made entirely in Swift.
