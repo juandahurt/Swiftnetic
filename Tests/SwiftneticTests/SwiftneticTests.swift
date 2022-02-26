@@ -6,8 +6,10 @@ final class SwiftneticTests: XCTestCase {
         let sut = SNSimpleAlgorithm<String>()
         do {
             let _ = try sut.start(verbose: true)
+        } catch SNErrors.intializerNotProvided {
+
         } catch {
-            print(error.localizedDescription)
+            XCTFail("Wrong error thrown!")
         }
     }
 }
