@@ -16,3 +16,10 @@ public class SNPopulation<G: SNGenome> {
         self.organisms = organisms
     }
 }
+
+
+extension SNPopulation: CustomStringConvertible {
+    public var description: String {
+        organisms.description
+    }
+}

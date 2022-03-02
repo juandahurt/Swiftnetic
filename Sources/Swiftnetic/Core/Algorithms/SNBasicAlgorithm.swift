@@ -14,17 +14,21 @@ final class SNBasicAlgorithm<G: SNGenome>: SNAlgorithm {
     private let logger = SNLogger()
     
     var population: SNPopulation<G>
+    var sizeOfOrganisms: Int
     
-    init() {
-        population = SNPopulation(organisms: [])
+    init(genotype: G, numberOfOrganisms: Int, sizeOfOrganisms: Int) {
+        population = SNPopulation(organisms: (0..<numberOfOrganisms).map { _ in
+            SNOrganism(genotype: genotype)
+        })
+        self.sizeOfOrganisms = sizeOfOrganisms
     }
     
     func initPopulation() {
-        // TODO: Check how to initialize the population
+        population.organisms.forEach { $0.genotype.initialize(ofSize: sizeOfOrganisms) }
     }
     
-    func start(verbose: Bool = true) -> SNPopulation<G> {
-        logger.log("initializing population")
+    public func start(verbose: Bool = true) -> SNPopulation<G> {
+        logger.log("initializing population...")
         initPopulation()
         
         // TODO: Select best individuals

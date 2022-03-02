@@ -15,6 +15,9 @@ public protocol SNAlgorithm {
     /// Algorithm's population
     var population: SNPopulation<G> { get set }
     
+    /// Number of genes of every organism
+    var sizeOfOrganisms: Int { get }
+    
     // TODO: Add selection method
     
     /// Usually, you would use this method to initialize you population randomly.
