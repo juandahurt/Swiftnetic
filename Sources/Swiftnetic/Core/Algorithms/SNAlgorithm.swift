@@ -9,7 +9,7 @@ import Foundation
 
 
 /// Defines a genetic algorithm
-public protocol SNAlgorithm {
+public protocol SNAlgorithm: AnyObject {
     associatedtype G where G: SNGenome
     
     /// Algorithm's population
@@ -18,6 +18,9 @@ public protocol SNAlgorithm {
     /// Number of genes of every organism
     var sizeOfOrganisms: Int { get }
     
+    /// Fitness evaluator
+    var evaluator: SNEvaluator? { get set }
+    
     // TODO: Add selection method
     
     /// Usually, you would use this method to initialize you population randomly.
@@ -25,7 +28,7 @@ public protocol SNAlgorithm {
     
     /// Excecutes the algorithm.
     /// - Returns: The evolved population.
-    func start(verbose: Bool) -> SNPopulation<G>
+    func start(verbose: Bool) throws -> SNPopulation<G>
     
     // TODO: Add method to select best individuals
 }

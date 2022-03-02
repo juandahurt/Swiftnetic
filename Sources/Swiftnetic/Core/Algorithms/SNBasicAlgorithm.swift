@@ -15,6 +15,7 @@ final class SNBasicAlgorithm<G: SNGenome>: SNAlgorithm {
     
     var population: SNPopulation<G>
     var sizeOfOrganisms: Int
+    weak var evaluator: SNEvaluator?
     
     init(genotype: G, numberOfOrganisms: Int, sizeOfOrganisms: Int) {
         population = SNPopulation(organisms: (0..<numberOfOrganisms).map { _ in
@@ -27,12 +28,19 @@ final class SNBasicAlgorithm<G: SNGenome>: SNAlgorithm {
         population.organisms.forEach { $0.genotype.initialize(ofSize: sizeOfOrganisms) }
     }
     
-    public func start(verbose: Bool = true) -> SNPopulation<G> {
+    public func start(verbose: Bool = true) throws -> SNPopulation<G> {
+        guard let evaluator = evaluator else {
+            throw SNError.evaluatorNotProvided
+        }
+        
         logger.log("initializing population...")
         initPopulation()
         
+        population.organisms.forEach {
+            $0.fitness = evaluator.evaluate(organism: $0)
+        }
+        
         // TODO: Select best individuals
-        // TODO: Evaluate the population
         // TODO: Reproduce
         // TODO: Mutate the population
         

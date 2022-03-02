@@ -13,7 +13,7 @@ public class SNOrganism<G: SNGenome> {
     public var genotype: G
     
     /// Indicates how good this organism (solution) is
-    public private(set) var fitness: Double
+    public var fitness: Double
     
     init(genotype: G, fitness: Double = 0) {
         self.genotype = genotype
