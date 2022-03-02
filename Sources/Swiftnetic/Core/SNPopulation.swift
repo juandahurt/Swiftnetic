@@ -7,15 +7,12 @@
 
 import Foundation
 
-public class SNPopulation<G: SNGenome> {
-    private let logger = SNLogger()
+/// Represent a living population
+public class SNPopulation<G: SNGenome> {    
+    /// All the organisms of the population
+    public private(set) var organisms: [SNOrganism<G>]
     
-    var organisms: [SNOrganism<G>] = []
-    
-    public func evolve(verbose: Bool = false) {
-        if verbose {
-            logger.log("evolving population...")
-        }
-        print(organisms)
+    init(organisms: [SNOrganism<G>]) {
+        self.organisms = organisms
     }
 }

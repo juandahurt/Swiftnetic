@@ -8,16 +8,21 @@
 import Foundation
 
 /// Represents a living organism
-class SNOrganism<G: SNGenome> {
-    var genotype: G
+public class SNOrganism<G: SNGenome> {
+    /// Organism's genotype
+    public var genotype: G
     
-    init(genotype: G) {
+    /// Indicates how good this organism (solution) is
+    public private(set) var fitness: Double
+    
+    init(genotype: G, fitness: Double = 0) {
         self.genotype = genotype
+        self.fitness = fitness
     }
 }
 
 extension SNOrganism: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         "\(genotype)"
     }
 }
