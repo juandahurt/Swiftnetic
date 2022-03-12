@@ -7,6 +7,9 @@ final class SwiftneticTests: XCTestCase {
         toolbox.geneGenerator = {
             Int.random(in: 0...1)
         }
+        toolbox.fitnessFunction = { individual in
+            Double.random(in: 0...10)
+        }
         let algorithm = SNAlgorithm(toolbox: toolbox)
         algorithm.run()
     }

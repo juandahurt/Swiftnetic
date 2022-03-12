@@ -7,7 +7,19 @@
 
 import Foundation
 
-/// The genetic algorithm itself
+/// The genetic algorithm itself.
+///
+/// If  you want to play with it using, for example, bits, just instantiate the algorithm and pass a toolbox into the constructor like this:
+///
+/// ```
+/// var toolbox = SNToolbox<Int>(populationSize: 3, numOfItems: 2)
+/// toolbox.geneGenerator = {
+///    Int.random(in: 0...1)
+/// }
+/// let algorithm = SNAlgorithm(toolbox: toolbox)
+/// // And then, you can run the algorithm
+/// algorithm.run()
+/// ```
 final class SNAlgorithm<G> {
     /// Algorithm's population
     private var population: [SNIndividual<G>] = []
@@ -29,6 +41,13 @@ final class SNAlgorithm<G> {
         }
     }
     
+    /// Updates the fitness value of every individual in the population using the fitness function
+    private func evaluatePopulation() {
+        for indIndex in population.indices {
+            population[indIndex].evaluate(with: toolbox.fitnessFunction)
+        }
+    }
+    
     /// Excecutes the algorithm
     func run() {
         let logger = SNLogger()
@@ -38,6 +57,6 @@ final class SNAlgorithm<G> {
         }
         
         initPopulation(ofSize: toolbox.populationSize, using: geneGenerator, numOfItems: toolbox.numOfItems)
-        logger.log("\(population)")
+        evaluatePopulation()
     }
 }

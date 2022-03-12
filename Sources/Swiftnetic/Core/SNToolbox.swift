@@ -18,4 +18,7 @@ struct SNToolbox<G> {
     
     /// It will be called to generate every single gene
     var geneGenerator: (() -> G)?
+    
+    /// It defines how good an individual is. If not set, it will return 0.
+    var fitnessFunction: (SNIndividual<G>) -> Double = { _ in 0 }
 }
