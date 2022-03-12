@@ -3,7 +3,11 @@ import XCTest
 
 final class SwiftneticTests: XCTestCase {
     func testExample() throws {
-        let toolbox = SNToolbox<Int>(populationSize: 5)
-        SNAlgorithm.run(using: toolbox)
+        var toolbox = SNToolbox<Int>(populationSize: 3, numOfItems: 2)
+        toolbox.geneGenerator = {
+            Int.random(in: 0...1)
+        }
+        let algorithm = SNAlgorithm(toolbox: toolbox)
+        algorithm.run()
     }
 }

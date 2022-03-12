@@ -13,6 +13,9 @@ struct SNToolbox<G> {
     /// Number of individuals
     var populationSize: Int
     
-    /// It will be called to generate avery single gene
+    /// Nimbers of genes inside every individual
+    var numOfItems: Int
+    
+    /// It will be called to generate every single gene
     var geneGenerator: (() -> G)?
 }

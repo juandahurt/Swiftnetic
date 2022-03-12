@@ -8,15 +8,36 @@
 import Foundation
 
 /// The genetic algorithm itself
-final class SNAlgorithm {
+final class SNAlgorithm<G> {
+    /// Algorithm's population
+    private var population: [SNIndividual<G>] = []
+    
+    /// Algorithm's toolbox
+    private let toolbox: SNToolbox<G>
+    
+    init(toolbox: SNToolbox<G>) {
+        self.toolbox = toolbox
+    }
+    
+    /// Initializises the population
+    /// - Parameter size: Number of individuals
+    /// - Parameter geneGenerator: toolbox gene generator
+    /// - Parameter numOfItems: number of genes inside every individual
+    private func initPopulation(ofSize size: Int, using geneGenerator: () -> G, numOfItems: Int) {
+        population = (0..<size).map { _ in
+            SNIndividual(generator: geneGenerator, numOfItems: numOfItems)
+        }
+    }
     
     /// Excecutes the algorithm
-    /// - Parameter toolbox: A SNToolbox instance
-    static func run<G>(using toolbox: SNToolbox<G>) {
+    func run() {
         let logger = SNLogger()
-        guard let _ = toolbox.geneGenerator else {
-            logger.log("oops! It seems that you have not provided a gene gerator inside the given toolbox.")
+        guard let geneGenerator = toolbox.geneGenerator else {
+            logger.log("oops! It seems that you have not provided a gene generator inside the given toolbox.")
             return
         }
+        
+        initPopulation(ofSize: toolbox.populationSize, using: geneGenerator, numOfItems: toolbox.numOfItems)
+        logger.log("\(population)")
     }
 }
