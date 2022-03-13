@@ -13,12 +13,12 @@ struct SNIndividual<G> {
     /// Individual's genes
     var genes: [G]
     
-    /// How good this individual is
-    private(set) var fitness: Double
+    /// Indicates how good this individual is
+    var fitness: Double
     
-    init(generator: () -> G, numOfItems: Int) {
+    init(generator: () -> G, numOfItems: Int, fitness: Double = 0) {
         genes = (0..<numOfItems).map { _ in generator() }
-        fitness = 0
+        self.fitness = fitness
     }
     
     /// Updates its fitness value.

@@ -2,19 +2,21 @@ import XCTest
 @testable import Swiftnetic
 
 final class SwiftneticTests: XCTestCase {
-    func testExample() throws {
-        var toolbox = SNToolbox<Int>(
-            populationSize: 5,
-            numOfItems: 2,
-            selectionMethod: SNRoulette(n: 2)
-        )
-        toolbox.geneGenerator = {
-            Int.random(in: 0...1)
+    func test_roulette_selection() {
+        let numOfParents = 5
+        let sut = SNRoulette(n: numOfParents)
+        var population: [SNIndividual<Int>] = []
+        for i in 0..<50 {
+            let individual = SNIndividual(
+                generator: {
+                    Int.random(in: 0...1)
+                },
+                numOfItems: 3,
+                fitness: Double(i)
+            )
+            population.append(individual)
         }
-        toolbox.fitnessFunction = { individual in
-            Double.random(in: 0...10)
-        }
-        let algorithm = SNAlgorithm(toolbox: toolbox)
-        algorithm.run(numGenerations: 2)
+        let parents = sut.select(from: population)
+        XCTAssertEqual(parents.count, numOfParents)
     }
 }

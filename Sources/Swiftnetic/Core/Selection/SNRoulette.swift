@@ -22,8 +22,33 @@ final class SNRoulette: SNSelectionMethod {
     }
     
     func select<G>(from population: [SNIndividual<G>]) -> [SNIndividual<G>] {
+        let sum = population.reduce(0.0, { sum, individual in sum + individual.fitness })
+        var wheel: [Double] = [0]
+        let sortedPopulation = population.sorted(by: { $0.fitness < $1.fitness })
+        
+        var accFitness = 0.0
+        for individual in sortedPopulation {
+            accFitness += individual.fitness / sum
+            wheel.append(accFitness)
+        }
+        
         var chosen: [SNIndividual<G>] = []
-        // TODO: Implement selection
+        var count = 0
+        while count < n {
+            let alpha = Double.random(in: 0...1)
+            for index in wheel.indices {
+                if index == wheel.indices.last {
+                    chosen.append(sortedPopulation[index - 1])
+                    break
+                }
+                if wheel[index] <= alpha && alpha <= wheel[index + 1] {
+                    chosen.append(sortedPopulation[index - 1])
+                    break
+                }
+            }
+            count += 1
+        }
+        
         return chosen
     }
 }
