@@ -21,4 +21,7 @@ struct SNToolbox<G> {
     
     /// It defines how good an individual is. If not set, it will return 0.
     var fitnessFunction: (SNIndividual<G>) -> Double = { _ in 0 }
+    
+    /// Parent selection  method.
+    var selectionMethod: SNSelectionMethod
 }

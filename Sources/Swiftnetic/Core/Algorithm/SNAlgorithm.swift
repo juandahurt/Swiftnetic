@@ -49,7 +49,7 @@ final class SNAlgorithm<G> {
     }
     
     /// Excecutes the algorithm
-    func run() {
+    func run(numGenerations: Int) {
         let logger = SNLogger()
         guard let geneGenerator = toolbox.geneGenerator else {
             logger.log("oops! It seems that you have not provided a gene generator inside the given toolbox.")
@@ -58,5 +58,11 @@ final class SNAlgorithm<G> {
         
         initPopulation(ofSize: toolbox.populationSize, using: geneGenerator, numOfItems: toolbox.numOfItems)
         evaluatePopulation()
+        
+        var generation = 0
+        while generation < numGenerations {
+            toolbox.selectionMethod.select(from: population)
+            generation += 1
+        }
     }
 }
