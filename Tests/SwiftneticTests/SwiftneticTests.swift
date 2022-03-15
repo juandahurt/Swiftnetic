@@ -16,7 +16,7 @@ final class SwiftneticTests: XCTestCase {
             )
             population.append(individual)
         }
-        let parents = sut.select(from: population)
+        let parents = sut.select(from: &population)
         XCTAssertEqual(parents.count, numOfParents)
     }
     
@@ -29,5 +29,14 @@ final class SwiftneticTests: XCTestCase {
 
         XCTAssertEqual(son.genes, [0,0,0,0,0,0])
         XCTAssertEqual(daughter.genes, [1,1,1,1,1,1])
+    }
+    
+    func test_flip_bit_mutation() {
+        let sut = SNFlipBit()
+        
+        var ind = SNIndividual(genes: [0,0,0,0,0,0])
+        sut.mutate(individual: &ind, by: 0.75)
+        print(ind)
+        XCTAssertNotEqual(ind.genes, [0,0,0,0,0,0])
     }
 }

@@ -27,4 +27,10 @@ struct SNToolbox<G> {
     
     /// The method to generate new children
     var reproductionMethod: SNReproductionMethod = SNOnePointCrossover()
+    
+    /// Indicates how often a individual is mutated
+    var mutationRate: Double = 0.0
+    
+    /// Method that will be used to mutate the population
+    var mutationMethod: SNMutationMethod = .flipBit
 }

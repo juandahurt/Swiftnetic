@@ -55,17 +55,26 @@ final class SNAlgorithm<G> {
             logger.log("oops! It seems that you have not provided a gene generator inside the given toolbox.")
             return
         }
+        // 1. Initialization
         initPopulation(ofSize: toolbox.populationSize, using: geneGenerator, numOfItems: toolbox.numOfItems)
         
         var generation = 1
         while generation <= numGenerations {
+            // 2. Evaluation
             evaluatePopulation()
-            let parents = toolbox.selectionMethod.select(from: population)
+            
+            // 3. Selection
+            let parents = toolbox.selectionMethod.select(from: &population)
             let matings = (0..<parents.count/2).map { index -> (SNIndividual<G>, SNIndividual<G>) in
                 return (parents[index*2], parents[index*2+1])
             }
             for (mom, dad) in matings {
-                let _ = toolbox.reproductionMethod.generateChildren(beetwen: (mom, dad))
+                // 4. Reproduction
+                var (son, daugther) = toolbox.reproductionMethod.generateChildren(beetwen: (mom, dad))
+                
+                // 5. Mutation
+                toolbox.mutationMethod.mutate(individual: &son, by: toolbox.mutationRate)
+                toolbox.mutationMethod.mutate(individual: &daugther, by: toolbox.mutationRate)
             }
             generation += 1
         }
