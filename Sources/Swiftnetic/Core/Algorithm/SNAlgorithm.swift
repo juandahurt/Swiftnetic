@@ -60,7 +60,7 @@ final class SNAlgorithm<G> {
         var generation = 1
         while generation <= numGenerations {
             evaluatePopulation()
-            let parents = toolbox.selectionMethod.select(from: population)
+            let parents = toolbox.selectionMethod.select(from: &population)
             let matings = (0..<parents.count/2).map { index -> (SNIndividual<G>, SNIndividual<G>) in
                 return (parents[index*2], parents[index*2+1])
             }

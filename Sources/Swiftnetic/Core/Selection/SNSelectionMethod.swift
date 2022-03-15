@@ -13,5 +13,5 @@ protocol SNSelectionMethod {
     /// Selects a number of individuals from a certain population
     /// - Parameter population: The population
     /// - Returns: The selected individuals
-    func select<G>(from population: [SNIndividual<G>]) -> [SNIndividual<G>]
+    func select<G>(from population: inout [SNIndividual<G>]) -> [SNIndividual<G>]
 }

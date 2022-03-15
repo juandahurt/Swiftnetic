@@ -16,7 +16,7 @@ final class SwiftneticTests: XCTestCase {
             )
             population.append(individual)
         }
-        let parents = sut.select(from: population)
+        let parents = sut.select(from: &population)
         XCTAssertEqual(parents.count, numOfParents)
     }
     

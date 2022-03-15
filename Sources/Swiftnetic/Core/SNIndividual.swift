@@ -10,6 +10,9 @@ import Foundation
 
 /// Represents an individual
 struct SNIndividual<G> {
+    /// Individual's identifier
+    var id: String = UUID().uuidString
+    
     /// Individual's genes
     var genes: [G]
     
