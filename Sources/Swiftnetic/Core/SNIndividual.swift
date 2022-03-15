@@ -21,6 +21,11 @@ struct SNIndividual<G> {
         self.fitness = fitness
     }
     
+    init(genes: [G]) {
+        self.genes = genes
+        self.fitness = 0
+    }
+    
     /// Updates its fitness value.
     /// - Parameter fitnessFunction: The fitness function
     mutating func evaluate(with fitnessFunction: (SNIndividual<G>) -> Double) {

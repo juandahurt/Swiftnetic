@@ -12,7 +12,7 @@ import Foundation
 /// If  you want to play with it using, for example, bits, just instantiate the algorithm and pass a toolbox into the constructor like this:
 ///
 /// ```
-/// var toolbox = SNToolbox<Int>(populationSize: 3, numOfItems: 2)
+/// var toolbox = SNToolbox(populationSize: 3, numOfItems: 2)
 /// toolbox.geneGenerator = {
 ///    Int.random(in: 0...1)
 /// }
@@ -55,13 +55,18 @@ final class SNAlgorithm<G> {
             logger.log("oops! It seems that you have not provided a gene generator inside the given toolbox.")
             return
         }
-        
         initPopulation(ofSize: toolbox.populationSize, using: geneGenerator, numOfItems: toolbox.numOfItems)
-        evaluatePopulation()
         
-        var generation = 0
-        while generation < numGenerations {
-            toolbox.selectionMethod.select(from: population)
+        var generation = 1
+        while generation <= numGenerations {
+            evaluatePopulation()
+            let parents = toolbox.selectionMethod.select(from: population)
+            let matings = (0..<parents.count/2).map { index -> (SNIndividual<G>, SNIndividual<G>) in
+                return (parents[index*2], parents[index*2+1])
+            }
+            for (mom, dad) in matings {
+                let _ = toolbox.reproductionMethod.generateChildren(beetwen: (mom, dad))
+            }
             generation += 1
         }
     }
