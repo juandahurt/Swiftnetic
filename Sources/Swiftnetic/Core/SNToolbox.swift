@@ -24,4 +24,7 @@ struct SNToolbox<G> {
     
     /// Parent selection  method.
     var selectionMethod: SNSelectionMethod
+    
+    /// The method to generate new children
+    var reproductionMethod: SNReproductionMethod = SNOnePointCrossover()
 }

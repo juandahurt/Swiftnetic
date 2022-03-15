@@ -61,8 +61,11 @@ final class SNAlgorithm<G> {
         while generation <= numGenerations {
             evaluatePopulation()
             let parents = toolbox.selectionMethod.select(from: population)
-            let _ = (0..<parents.count/2).map { index -> (SNIndividual<G>, SNIndividual<G>) in
+            let matings = (0..<parents.count/2).map { index -> (SNIndividual<G>, SNIndividual<G>) in
                 return (parents[index*2], parents[index*2+1])
+            }
+            for (mom, dad) in matings {
+                let _ = toolbox.reproductionMethod.generateChildren(beetwen: (mom, dad))
             }
             generation += 1
         }

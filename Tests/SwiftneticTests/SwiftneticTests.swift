@@ -19,4 +19,15 @@ final class SwiftneticTests: XCTestCase {
         let parents = sut.select(from: population)
         XCTAssertEqual(parents.count, numOfParents)
     }
+    
+    func test_one_point_crossover() {
+        let sut = SNOnePointCrossover()
+        let mom = SNIndividual(genes: [0,0,0,1,1,1])
+        let dad = SNIndividual(genes: [1,1,1,0,0,0])
+        
+        let (son, daughter) = sut.generateChildren(beetwen: (mom, dad))
+
+        XCTAssertEqual(son.genes, [0,0,0,0,0,0])
+        XCTAssertEqual(daughter.genes, [1,1,1,1,1,1])
+    }
 }
