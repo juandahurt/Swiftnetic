@@ -36,7 +36,7 @@ final class SwiftneticTests: XCTestCase {
         
         var ind = SNIndividual(genes: [0,0,0,0,0,0])
         sut.mutate(individual: &ind, by: 0.75)
-        print(ind)
+        
         XCTAssertNotEqual(ind.genes, [0,0,0,0,0,0])
     }
 }
