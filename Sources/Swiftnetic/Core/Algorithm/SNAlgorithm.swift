@@ -75,6 +75,10 @@ final class SNAlgorithm<G> {
                 // 5. Mutation
                 toolbox.mutationMethod.mutate(individual: &son, by: toolbox.mutationRate)
                 toolbox.mutationMethod.mutate(individual: &daugther, by: toolbox.mutationRate)
+                
+                // 6. Update population
+                population.append(son)
+                population.append(daugther)
             }
             generation += 1
         }
