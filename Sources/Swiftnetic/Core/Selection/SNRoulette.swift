@@ -43,8 +43,8 @@ final class SNRoulette: SNSelectionMethod {
                     break
                 }
                 if wheel[index] <= alpha && alpha <= wheel[index + 1] {
-                    chosen.append(sortedPopulation[index - 1])
-                    population.removeAll(where: { $0.id == sortedPopulation[index - 1].id })
+                    chosen.append(sortedPopulation[index > 0 ? index - 1 : 0])
+                    population.removeAll(where: { $0.id == sortedPopulation[index > 0 ? index - 1 : 0].id })
                     break
                 }
             }

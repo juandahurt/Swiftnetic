@@ -22,10 +22,13 @@ import Foundation
 /// ```
 final class SNAlgorithm<G> {
     /// Algorithm's population
-    private var population: [SNIndividual<G>] = []
+    private(set) var population: [SNIndividual<G>] = []
     
     /// Algorithm's toolbox
     private let toolbox: SNToolbox<G>
+    
+    /// Statistics manager
+    private var statsManager = SNStatsManager()
     
     init(toolbox: SNToolbox<G>) {
         self.toolbox = toolbox
@@ -48,12 +51,27 @@ final class SNAlgorithm<G> {
         }
     }
     
+    private func showStatsTitle() {
+        let genTitle = ("GENERATION" as NSString).utf8String!
+        let maxTitle = ("MAX" as NSString).utf8String!
+        let minTitle = ("MIN" as NSString).utf8String!
+        print(String(format: "%-10s %10s %10s", genTitle, maxTitle, minTitle))
+    }
+    
+    private func showStats(gen: Int) {
+        print(String(format: "%-10d %10f %10f", gen, statsManager.maxFitness, statsManager.minFitness))
+    }
+    
     /// Excecutes the algorithm
-    func run(numGenerations: Int) {
+    func run(numGenerations: Int, verbose: Bool = false) {
         let logger = SNLogger()
         guard let geneGenerator = toolbox.geneGenerator else {
             logger.log("oops! It seems that you have not provided a gene generator inside the given toolbox.")
             return
+        }
+        if verbose {
+            logger.log("intiating...")
+            showStatsTitle()
         }
         // 1. Initialization
         initPopulation(ofSize: toolbox.populationSize, using: geneGenerator, numOfItems: toolbox.numOfItems)
@@ -62,6 +80,11 @@ final class SNAlgorithm<G> {
         while generation <= numGenerations {
             // 2. Evaluation
             evaluatePopulation()
+            
+            if verbose {
+                statsManager.update(using: population)
+                showStats(gen: generation)
+            }
             
             // 3. Selection
             let parents = toolbox.selectionMethod.select(from: &population)
@@ -75,8 +98,15 @@ final class SNAlgorithm<G> {
                 // 5. Mutation
                 toolbox.mutationMethod.mutate(individual: &son, by: toolbox.mutationRate)
                 toolbox.mutationMethod.mutate(individual: &daugther, by: toolbox.mutationRate)
+                
+                // 6. Update population
+                population.append(son)
+                population.append(daugther)
             }
             generation += 1
+        }
+        if verbose {
+            logger.log("done!")
         }
     }
 }
