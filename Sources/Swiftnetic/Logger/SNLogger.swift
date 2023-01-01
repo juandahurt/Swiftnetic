@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Swiftnetic logger
 final class SNLogger {
     /// Logs a message to the console

@@ -2,35 +2,67 @@
 //  SNToolbox.swift
 //  
 //
-//  Created by Juan Hurtado on 11/03/22.
+//  Created by Juan Hurtado on 31/12/22.
 //
 
 import Foundation
 
+/// This is the genetic algorithm toolbox.
+///
+/// Use this toolbox to custimize the genetic algorithm to suit your needs.
+///
+/// ```swift
+/// let myToolbox = SNToolbox(
+///     generations: 10,
+///     populationSize: 5,
+///     numberOfGenes: 4
+/// )
+/// ```
+/// > Warning: `generations`, `populationSize` and `numberOfGenes` properties must be `> 0` (for obvoius reasons).
+///
+public struct SNToolbox {
+    /// The number of generations.
+    let generations: Int
+    /// The amount of individuals for every generation.
+    let populationSize: Int
+    /// The number of genes for every individual.
+    let numberOfGenes: Int
+    /// Crossover type to be used within the algortihm.
+    let crossoverType: SNCrossoverType = .singlePoint
+    /// The way the algorithm will select the parents of a new generation.
+    let parentSelectionType: SNParentSelectionType = .random
+    /// The minimum value that a gene can have,
+    let minGeneValue = -4.0
+    /// The maximum value that a gene can have,
+    let maxGeneValue = 4.0
+    
+    public init(generations: Int, populationSize: Int, numberOfGenes: Int) throws {
+        guard generations > 0 else {
+            throw SNToolboxError.wrongNumberOfGenerations
+        }
+        guard populationSize > 0 else {
+            throw SNToolboxError.wrongPopulationSize
+        }
+        guard numberOfGenes > 0 else {
+            throw SNToolboxError.wrongNumberOfGenes
+        }
+        
+        self.generations = generations
+        self.populationSize = populationSize
+        self.numberOfGenes = numberOfGenes
+    }
+}
 
-/// It contains all the tools needed to excecute the genetic algorithm
-struct SNToolbox<G> {
-    /// Number of individuals
-    var populationSize: Int
-    
-    /// Nimbers of genes inside every individual
-    var numOfItems: Int
-    
-    /// It will be called to generate every single gene
-    var geneGenerator: (() -> G)?
-    
-    /// It defines how good an individual is. If not set, it will return 0.
-    var fitnessFunction: (SNIndividual<G>) -> Double = { _ in 0 }
-    
-    /// Parent selection  method.
-    var selectionMethod: SNSelectionMethod
-    
-    /// The method to generate new children
-    var reproductionMethod: SNReproductionMethod = SNOnePointCrossover()
-    
-    /// Indicates how often a individual is mutated
-    var mutationRate: Double = 0.0
-    
-    /// Method that will be used to mutate the population
-    var mutationMethod: SNMutationMethod = .flipBit
+public enum SNToolboxError: Error {
+    case wrongNumberOfGenerations
+    case wrongPopulationSize
+    case wrongNumberOfGenes
+}
+
+enum SNCrossoverType {
+    case singlePoint
+}
+
+enum SNParentSelectionType {
+    case random
 }
