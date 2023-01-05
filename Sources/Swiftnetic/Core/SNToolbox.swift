@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// This is the genetic algorithm toolbox.
+/// This is the genetic algorithm toolbox. It contains the configuration needed to run the algorithm.
 ///
 /// Use this toolbox to custimize the genetic algorithm to suit your needs.
 ///
@@ -31,9 +31,9 @@ public struct SNToolbox {
     let crossoverType: SNCrossoverType = .singlePoint
     /// The way the algorithm will select the parents of a new generation.
     let parentSelectionType: SNParentSelectionType = .random
-    /// The minimum value that a gene can have,
+    /// The minimum value that a gene can have.
     let minGeneValue = -4.0
-    /// The maximum value that a gene can have,
+    /// The maximum value that a gene can have.
     let maxGeneValue = 4.0
     
     public init(generations: Int, populationSize: Int, numberOfGenes: Int) throws {
