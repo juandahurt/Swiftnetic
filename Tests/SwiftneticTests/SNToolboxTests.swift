@@ -11,7 +11,7 @@ import Swiftnetic
 final class SNToolboxTests: XCTestCase {
     func testShouldThrowErrorWhenWrongNumberOfGenerationsIsProvided() {
         do {
-            let _ = try SNToolbox(generations: 0, populationSize: 10, numberOfGenes: 1)
+            let _ = try SNToolbox(generations: 0, populationSize: 10, numberOfGenes: 1, numberOfParentsToSelect: 2)
             XCTFail("Toolbox `init()` should throw when the number of generations is < 1")
         } catch {
             XCTAssertEqual(error as? SNToolboxError, SNToolboxError.wrongNumberOfGenerations)
@@ -20,7 +20,7 @@ final class SNToolboxTests: XCTestCase {
     
     func testShouldThrowErrorWhenWrongPopulationSizeIsProvided() {
         do {
-            let _ = try SNToolbox(generations: 10, populationSize: -1, numberOfGenes: 1)
+            let _ = try SNToolbox(generations: 10, populationSize: -1, numberOfGenes: 1, numberOfParentsToSelect: 2)
             XCTFail("Toolbox `init()` should throw when population size is < 1")
         } catch {
             XCTAssertEqual(error as? SNToolboxError, SNToolboxError.wrongPopulationSize)
@@ -29,7 +29,7 @@ final class SNToolboxTests: XCTestCase {
     
     func testShouldThrowErrorWhenWrongGenesNumberIsProvided() {
         do {
-            let _ = try SNToolbox(generations: 10, populationSize: 10, numberOfGenes: 0)
+            let _ = try SNToolbox(generations: 10, populationSize: 10, numberOfGenes: 0, numberOfParentsToSelect: 2)
             XCTFail("Toolbox `init()` should throw when the number of genes is < 1")
         } catch {
             XCTAssertEqual(error as? SNToolboxError, SNToolboxError.wrongNumberOfGenes)
