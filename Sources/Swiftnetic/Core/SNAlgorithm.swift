@@ -15,12 +15,16 @@ import Foundation
 /// algortihm.run() // To excecute the algorithm
 /// ```
 public class SNAlgorithm {
-    /// The algorithm toolbox. See ``SNToolbox`` to get more details.
+    /// The algorithm toolbox. See `SNToolbox` to get more details.
     let toolbox: SNToolbox
     var population: [Individual] = []
+    var parentSelector: SNParentSelector
     
     public init(toolbox: SNToolbox) {
         self.toolbox = toolbox
+        self.parentSelector = SNParentSelectorFactory(
+            numParentsToSelect: toolbox.numberOfParentsToSelect
+        ).createParentSelector(basedOn: toolbox.parentSelectionType)
     }
     
     /// It excecutes the algorithm.
@@ -28,7 +32,8 @@ public class SNAlgorithm {
         // step 1: init the population
         initPopulation()
         // while the number of generation has not been reached...
-        // TODO: step 2: select the parents
+        // step 2: select the parents
+        let _ = parentSelector.selectParents(from: population, toolbox: toolbox)
         // TODO: step 3: crossover
         // TODO: step 4: mutation
     }
