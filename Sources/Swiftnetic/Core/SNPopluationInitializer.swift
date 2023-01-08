@@ -20,7 +20,7 @@ class SNPopluationInitializer {
         self.size = size
     }
     
-    func initPopulation() -> [Individual] {
+    func initPopulation() -> [SNIndividual] {
         (0..<size).map { _ in
             .init(
                 genotype: (0..<numberOfGenes).map { _ in

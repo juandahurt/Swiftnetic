@@ -67,10 +67,6 @@ public enum SNToolboxError: Error {
     case wrongNumberOfGenes
 }
 
-enum SNCrossoverType {
-    case singlePoint
-}
-
 enum SNParentSelectionType {
     case random
 }

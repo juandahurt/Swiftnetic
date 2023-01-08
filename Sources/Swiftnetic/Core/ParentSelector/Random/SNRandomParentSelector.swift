@@ -9,9 +9,9 @@ import Foundation
 
 /// Class that implements a random parent selection.
 class SNRandomParentSelector: SNParentSelector {
-    func selectParents(from population: [Individual], toolbox: SNToolbox) -> [Individual] {
+    func selectParents(from population: [SNIndividual], toolbox: SNToolbox) -> [SNIndividual] {
         var populationCopy = population
-        var parents: [Individual] = []
+        var parents: [SNIndividual] = []
         var parentsCounter = 0
         while parentsCounter < toolbox.numberOfParentsToSelect {
             let randomIndex = Int.random(in: 0..<(toolbox.populationSize - parentsCounter))

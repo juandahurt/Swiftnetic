@@ -17,7 +17,7 @@ import Foundation
 public class SNAlgorithm {
     /// The algorithm toolbox. See `SNToolbox` to get more details.
     let toolbox: SNToolbox
-    var population: [Individual] = []
+    var population: [SNIndividual] = []
     var parentSelector: SNParentSelector
     
     public init(toolbox: SNToolbox) {
@@ -39,6 +39,7 @@ public class SNAlgorithm {
     }
     
     func initPopulation() {
+        // TODO: maybe remove all the params? I mean, only pass the toolbox (?)
         let initializer = SNPopluationInitializer(
             min: toolbox.minGeneValue,
             max: toolbox.maxGeneValue,
@@ -46,9 +47,4 @@ public class SNAlgorithm {
             size: toolbox.populationSize)
         population = initializer.initPopulation()
     }
-}
-
-struct Individual {
-    var genotype: [Double]
-    var fitness: Double
 }
