@@ -27,8 +27,8 @@ public struct SNToolbox {
     let populationSize: Int
     /// The number of genes for every individual.
     let numberOfGenes: Int
-    /// Crossover type to be used within the algortihm.
-    let crossoverType: SNCrossoverType = .singlePoint
+    /// Crossover method to be used within the algortihm.
+    let crossoverType: SNCrossoverMethod = .singlePoint
     /// The way the algorithm will select the parents of a new generation.
     let parentSelectionType: SNParentSelectionType = .random
     /// The number of parents to select.
