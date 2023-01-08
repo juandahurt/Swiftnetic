@@ -14,5 +14,5 @@ protocol SNParentSelector {
     ///   - population: The current population.
     ///   - toolbox: The algorithm toolbox.
     /// - Returns: The selected parents as a list of individuals.
-    func selectParents(from population: [Individual], toolbox: SNToolbox) -> [Individual]
+    func selectParents(from population: [SNIndividual], toolbox: SNToolbox) -> [SNIndividual]
 }

@@ -15,7 +15,7 @@ final class SNPopulationInitializerTests: XCTestCase {
     let size = 5
     
     var initializer: SNPopluationInitializer!
-    var population: [Individual]!
+    var population: [SNIndividual]!
     
     override func setUp() {
         initializer = SNPopluationInitializer(min: min, max: max, numberOfGenes: genes, size: size)

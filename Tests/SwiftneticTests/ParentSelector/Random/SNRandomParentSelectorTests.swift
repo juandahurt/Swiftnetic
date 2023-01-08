@@ -9,7 +9,7 @@
 import XCTest
 
 final class SNRandomParentSelectorTests: XCTestCase {
-    var population: [Individual] = []
+    var population: [SNIndividual] = []
     var toolbox: SNToolbox!
     let numberOfParentsToSelect = 2
     
