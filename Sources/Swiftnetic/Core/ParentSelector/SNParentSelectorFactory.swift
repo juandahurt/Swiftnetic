@@ -16,7 +16,7 @@ class SNParentSelectorFactory {
         self.numParentsToSelect = numParentsToSelect
     }
     
-    /// Returns a instance that implements the `SNParentSelector` protocol.
+    /// Returns an instance that implements the `SNParentSelector` protocol.
     /// - Parameter type: The type of parent selection.
     /// - Returns: The requried parent selector instance.
     func createParentSelector(basedOn type: SNParentSelectionType) -> SNParentSelector {
