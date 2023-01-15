@@ -16,16 +16,12 @@ final class SNRandomParentSelectorTests: XCTestCase {
     override func setUp() {
         let initializer = SNPopluationInitializer(min: 0, max: 1, numberOfGenes: 3, size: 4)
         population = initializer.initPopulation()
-        do {
-            toolbox = try .init(
-                generations: 2,
-                populationSize: 4,
-                numberOfGenes: 3,
-                numberOfParentsToSelect: numberOfParentsToSelect
-            )
-        } catch {
-            assertionFailure("toolbox couldn't be initiated")
-        }
+        toolbox = .init(
+            generations: 2,
+            populationSize: 4,
+            numberOfGenes: 3,
+            numberOfParentsToSelect: numberOfParentsToSelect
+        )
     }
     
     func test() {

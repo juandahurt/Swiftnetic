@@ -47,7 +47,6 @@ public class SNAlgorithm {
     }
     
     func initPopulation() {
-        // TODO: maybe remove all the params? I mean, only pass the toolbox (?)
         let initializer = SNPopluationInitializer(
             min: toolbox.minGeneValue,
             max: toolbox.maxGeneValue,
