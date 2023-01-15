@@ -43,30 +43,13 @@ public struct SNToolbox {
         populationSize: Int,
         numberOfGenes: Int,
         numberOfParentsToSelect: Int
-    ) throws {
-        guard generations > 0 else {
-            throw SNToolboxError.wrongNumberOfGenerations
-        }
-        guard populationSize > 0 else {
-            throw SNToolboxError.wrongPopulationSize
-        }
-        guard numberOfGenes > 0 else {
-            throw SNToolboxError.wrongNumberOfGenes
-        }
-        
+    ) {
+        assert(generations > 0, "the number of generations must be greather than zero")
+        assert(populationSize > 0, "the population size must be greather than zero")
+        assert(numberOfGenes > 0, "the number of genes must be greather than zero")
         self.generations = generations
         self.populationSize = populationSize
         self.numberOfGenes = numberOfGenes
         self.numberOfParentsToSelect = numberOfParentsToSelect
     }
-}
-
-public enum SNToolboxError: Error {
-    case wrongNumberOfGenerations
-    case wrongPopulationSize
-    case wrongNumberOfGenes
-}
-
-enum SNParentSelectionType {
-    case random
 }

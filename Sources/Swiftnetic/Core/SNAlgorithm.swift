@@ -38,7 +38,7 @@ public class SNAlgorithm {
         // while the number of generation has not been reached...
         while currentGeneration < toolbox.generations {
             // step 2: select the parents
-            let parents = parentSelector.selectParents(from: population, toolbox: toolbox)
+            let parents = parentSelector.selectParents(from: population, numberOfParentsToSelect: toolbox.numberOfParentsToSelect)
             // step 3: crossover
             let offspring = crossoverExcecutor.crossover(parents: parents)
             // TODO: step 4: mutation
@@ -47,7 +47,6 @@ public class SNAlgorithm {
     }
     
     func initPopulation() {
-        // TODO: maybe remove all the params? I mean, only pass the toolbox (?)
         let initializer = SNPopluationInitializer(
             min: toolbox.minGeneValue,
             max: toolbox.maxGeneValue,
