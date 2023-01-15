@@ -53,7 +53,3 @@ public struct SNToolbox {
         self.numberOfParentsToSelect = numberOfParentsToSelect
     }
 }
-
-enum SNParentSelectionType {
-    case random
-}
