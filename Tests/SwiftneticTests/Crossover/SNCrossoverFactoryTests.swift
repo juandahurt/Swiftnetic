@@ -11,8 +11,7 @@ import XCTest
 final class SNCrossoverFactoryTests: XCTestCase {
     func test_factory_shouldReturnSinglePointExcecutor() {
         let method = SNCrossoverMethod.singlePoint
-        let parents: [SNIndividual] = [.init(genotype: [0,1], fitness: 0)]
-        let factory = SNCrossoverFactory(parents: parents)
+        let factory = SNCrossoverFactory()
         let excecutor = factory.createExcecutor(basedOn: method)
         XCTAssertTrue(excecutor is SNSinglePointCrossoverExcecutor)
     }

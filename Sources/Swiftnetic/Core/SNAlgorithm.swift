@@ -18,24 +18,32 @@ public class SNAlgorithm {
     /// The algorithm toolbox. See `SNToolbox` to get more details.
     let toolbox: SNToolbox
     var population: [SNIndividual] = []
-    var parentSelector: SNParentSelector
+    private let parentSelector: SNParentSelector
+    private let crossoverExcecutor: SNCrossoverExcecutor
     
     public init(toolbox: SNToolbox) {
         self.toolbox = toolbox
         self.parentSelector = SNParentSelectorFactory(
             numParentsToSelect: toolbox.numberOfParentsToSelect
         ).createParentSelector(basedOn: toolbox.parentSelectionType)
+        self.crossoverExcecutor = SNCrossoverFactory()
+            .createExcecutor(basedOn: toolbox.crossoverType)
     }
     
     /// It excecutes the algorithm.
     public func run() {
+        var currentGeneration = 0
         // step 1: init the population
         initPopulation()
         // while the number of generation has not been reached...
-        // step 2: select the parents
-        let _ = parentSelector.selectParents(from: population, toolbox: toolbox)
-        // TODO: step 3: crossover
-        // TODO: step 4: mutation
+        while currentGeneration < toolbox.generations {
+            // step 2: select the parents
+            let parents = parentSelector.selectParents(from: population, toolbox: toolbox)
+            // step 3: crossover
+            let offspring = crossoverExcecutor.crossover(parents: parents)
+            // TODO: step 4: mutation
+            currentGeneration += 1
+        }
     }
     
     func initPopulation() {

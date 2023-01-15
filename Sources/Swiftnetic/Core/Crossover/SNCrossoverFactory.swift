@@ -8,13 +8,7 @@
 import Foundation
 
 /// Factory class that creates a crossover excecutor.
-class SNCrossoverFactory {
-    let parents: [SNIndividual]
-    
-    init(parents: [SNIndividual]) {
-        self.parents = parents
-    }
-    
+class SNCrossoverFactory {    
     /// Returns an instance that implements the protocol `SNCrossoverExcecutor`.
     /// - Parameter method: The crossover method.
     /// - Returns: The required crossover excecutor instance.
