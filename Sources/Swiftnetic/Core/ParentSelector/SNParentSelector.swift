@@ -12,7 +12,7 @@ protocol SNParentSelector {
     /// Selects the parents for the crossover
     /// - Parameters:
     ///   - population: The current population.
-    ///   - toolbox: The algorithm toolbox.
+    ///   - numberOfParentsToSelect: The number of parents to be selected.
     /// - Returns: The selected parents as a list of individuals.
-    func selectParents(from population: [SNIndividual], toolbox: SNToolbox) -> [SNIndividual]
+    func selectParents(from population: [SNIndividual], numberOfParentsToSelect: Int) -> [SNIndividual]
 }
