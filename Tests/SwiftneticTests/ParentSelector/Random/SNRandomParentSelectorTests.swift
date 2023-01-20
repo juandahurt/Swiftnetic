@@ -13,7 +13,7 @@ final class SNRandomParentSelectorTests: XCTestCase {
     let numberOfParentsToSelect = 3
     
     override func setUp() {
-        let initializer = SNPopluationInitializer(min: 0, max: 1, numberOfGenes: 3, size: 4)
+        let initializer = SNPopluationInitializer(min: 0, max: 1, numberOfGenes: 3, size: 4, type: .double)
         population = initializer.initPopulation()
     }
     

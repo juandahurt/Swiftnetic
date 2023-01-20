@@ -37,12 +37,17 @@ public struct SNToolbox {
     let minGeneValue = -4.0
     /// The maximum value that a gene can have.
     let maxGeneValue = 4.0
+    let genotypeType: SNGenotypeType
+    /// The function that will desribe how good an individual is.
+    let fitnessFunction: ([Double]) -> Double
     
     public init(
         generations: Int,
         populationSize: Int,
         numberOfGenes: Int,
-        numberOfParentsToSelect: Int
+        numberOfParentsToSelect: Int,
+        genotypeType: SNGenotypeType,
+        fitnessFunction: @escaping ([Double]) -> Double
     ) {
         assert(generations > 0, "the number of generations must be greather than zero")
         assert(populationSize > 0, "the population size must be greather than zero")
@@ -51,5 +56,7 @@ public struct SNToolbox {
         self.populationSize = populationSize
         self.numberOfGenes = numberOfGenes
         self.numberOfParentsToSelect = numberOfParentsToSelect
+        self.genotypeType = genotypeType
+        self.fitnessFunction = fitnessFunction
     }
 }
