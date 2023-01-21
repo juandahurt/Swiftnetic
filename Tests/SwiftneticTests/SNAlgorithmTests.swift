@@ -10,7 +10,7 @@ import XCTest
 
 final class SNAlgorithmTests: XCTestCase {
     func test() {
-        let toolbox = SNToolbox(generations: 100, populationSize: 20, numberOfGenes: 7, numberOfParentsToSelect: 2, genotypeType: .bit) { [weak self] genotype in
+        let toolbox = SNToolbox(generations: 100, populationSize: 20, numberOfGenes: 7, numberOfParentsToSelect: 2, genotypeType: .bit, goal: .minimize) { [weak self] genotype in
             guard let self else { return 0.0 }
             let x = self.fromBinaryToNumber(binary: genotype)
             return self.evaluate(x: x)

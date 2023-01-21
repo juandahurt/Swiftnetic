@@ -54,7 +54,13 @@ public class SNAlgorithm {
                 average += fitness
             }
             average = average / Double(population.endIndex)
-            population = population.sorted(by: { $0.fitness > $1.fitness })
+            population = population.sorted(by: {
+                if toolbox.goal == .maximize {
+                    return $0.fitness > $1.fitness
+                } else {
+                    return $0.fitness < $1.fitness
+                }
+            })
             // step 2: select the parents
             let parents = parentSelector.selectParents(from: population, numberOfParentsToSelect: toolbox.numberOfParentsToSelect)
             // step 3: crossover
