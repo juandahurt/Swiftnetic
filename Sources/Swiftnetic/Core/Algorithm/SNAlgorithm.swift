@@ -33,7 +33,8 @@ public class SNAlgorithm {
     }
     
     /// It excecutes the algorithm.
-    public func run() {
+    /// - Returns: A tuple that contains the best individual and the number generation at which the best fitness value was reached.
+    public func run() -> (best: [Double], gen: Int) {
         // step 1: init the population
         initPopulation()
         // while the number of generation has not been reached...
@@ -67,9 +68,14 @@ public class SNAlgorithm {
             currentGeneration += 1
             if toolbox.verbose { stats.show(generation: currentGeneration) }
         }
+        return (population.first!.genotype, currentGeneration)
     }
     
-    func initPopulation() {
+    /// ```
+    /// func run() -> (best: Inidividual, gen: Int)
+    /// ```
+    
+    private func initPopulation() {
         let initializer = SNPopluationInitializer(
             min: toolbox.minGeneValue,
             max: toolbox.maxGeneValue,
