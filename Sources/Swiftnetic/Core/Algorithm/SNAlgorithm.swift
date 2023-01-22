@@ -49,7 +49,7 @@ public class SNAlgorithm {
                     stats.avg += fitness
                 }
             }
-            stats.avg /= Double(population.endIndex)
+            if toolbox.verbose { stats.avg /= Double(population.endIndex) }
             population = population.sorted(by: {
                 if toolbox.goal == .maximize {
                     return $0.fitness > $1.fitness
