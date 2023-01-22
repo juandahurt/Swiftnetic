@@ -18,7 +18,7 @@ final class SNPopulationInitializerTests: XCTestCase {
     var population: [SNIndividual]!
     
     override func setUp() {
-        initializer = SNPopluationInitializer(min: min, max: max, numberOfGenes: genes, size: size)
+        initializer = SNPopluationInitializer(min: min, max: max, numberOfGenes: genes, size: size, type: .double)
         population = initializer.initPopulation()
     }
     
