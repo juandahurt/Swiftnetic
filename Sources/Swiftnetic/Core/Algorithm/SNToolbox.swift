@@ -34,16 +34,20 @@ public struct SNToolbox {
     /// The number of parents to select.
     let numberOfParentsToSelect: Int
     /// The minimum value that a gene can have.
-    let minGeneValue = -4.0
+    let minGeneValue = -4.0 // TODO: allow the user to set this value.
     /// The maximum value that a gene can have.
-    let maxGeneValue = 4.0
+    let maxGeneValue = 4.0 // TODO: allow the user to set this value.
     /// The type of genotype
     let genotypeType: SNGenotypeType
     /// It describes what the goal of the algortihm is.
     ///
     /// So if you want to, for example, maximize the `fitness` value, you would use `.maximize`. When we say that
-    /// the algoritmh will maximize the fitness value, the best individuals wille be the ones the greather value and viceversa.
+    /// the algorithm will maximize the fitness value, the best individuals wille be the ones the greather value and viceversa.
     let goal: SNAlgorithmGoal
+    /// Indicates if the stats of every generation will be calculated and logged on console.
+    ///
+    /// It's default value is `false`
+    let verbose: Bool
     /// The function that will desribe how good an individual is.
     let fitnessFunction: ([Double]) -> Double
     
@@ -54,6 +58,7 @@ public struct SNToolbox {
         numberOfParentsToSelect: Int,
         genotypeType: SNGenotypeType,
         goal: SNAlgorithmGoal = .maximize,
+        verbose: Bool = false,
         fitnessFunction: @escaping ([Double]) -> Double
     ) {
         assert(generations > 0, "the number of generations must be greather than zero")
@@ -65,6 +70,7 @@ public struct SNToolbox {
         self.numberOfParentsToSelect = numberOfParentsToSelect
         self.genotypeType = genotypeType
         self.goal = goal
+        self.verbose = verbose
         self.fitnessFunction = fitnessFunction
     }
 }

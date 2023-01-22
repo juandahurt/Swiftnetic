@@ -16,13 +16,11 @@ import Foundation
 /// ```
 public class SNAlgorithm {
     private let toolbox: SNToolbox
-    private var population: [SNIndividual] = []
     private let parentSelector: SNParentSelector
     private let crossoverExcecutor: SNCrossoverExcecutor
+    private let stats = SNStats()
     
-    private var maxValue = 0.0
-    private var minValue = 0.0
-    private var average = 0.0
+    private var population: [SNIndividual] = []
     private var currentGeneration = 0
     
     public init(toolbox: SNToolbox) {
@@ -40,20 +38,17 @@ public class SNAlgorithm {
         initPopulation()
         // while the number of generation has not been reached...
         while currentGeneration < toolbox.generations {
-            resetStats()
+            if toolbox.verbose { stats.reset() }
             // evaluate the fitness of "every" individual
             for individualIndex in population.indices {
                 let fitness = toolbox.fitnessFunction(population[individualIndex].genotype)
                 population[individualIndex].fitness = fitness
-                if fitness > maxValue {
-                    maxValue = fitness
+                if toolbox.verbose {
+                    stats.update(usingIndividual: population[individualIndex])
+                    stats.avg += fitness
                 }
-                if fitness < minValue {
-                    minValue = fitness
-                }
-                average += fitness
             }
-            average = average / Double(population.endIndex)
+            stats.avg /= Double(population.endIndex)
             population = population.sorted(by: {
                 if toolbox.goal == .maximize {
                     return $0.fitness > $1.fitness
@@ -70,7 +65,7 @@ public class SNAlgorithm {
             population.removeSubrange(population.endIndex - offspring.endIndex..<population.endIndex)
             population.append(contentsOf: offspring)
             currentGeneration += 1
-            showStats()
+            if toolbox.verbose { stats.show(generation: currentGeneration) }
         }
     }
     
@@ -82,18 +77,5 @@ public class SNAlgorithm {
             size: toolbox.populationSize,
             type: toolbox.genotypeType)
         population = initializer.initPopulation()
-    }
-    
-    func showStats() {
-        if currentGeneration == 1 {
-            print(String(format: "\t%@ \t%@ \t%@ \t%@", "GEN", "MAX", "MIN", "AVG"))
-        }
-        print(String(format: "%6d %6.2f %6.2f %6.2f", currentGeneration, maxValue, minValue, average))
-    }
-    
-    func resetStats() {
-        minValue = population[0].fitness
-        maxValue = population[0].fitness
-        average = 0.0
     }
 }
